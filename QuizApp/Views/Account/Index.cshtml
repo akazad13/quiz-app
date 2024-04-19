@@ -1,23 +1,26 @@
-﻿@model List<string>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model List<string>
+
+@inject IViewLocalizer Localizer
 
 <div class="container">
     <div class="row">
         <div class="col-md-3 ">
             <div class="list-group nav nav-tabs">
-                <a id="dashboardLink" href="#dashboardDiv" data-toggle="tab" class="list-group-item list-group-item-action active">Dashboard</a>
-                <a id="viewProfileLink" href="#viewProfileDiv" data-toggle="tab" class="list-group-item list-group-item-action ">View Profile</a>
-                <a id="updateProfileLink" href="#updateProfileDiv" data-toggle="tab" class="list-group-item list-group-item-action">Update Profile</a>
-                <a href="#changePasswordDiv" data-toggle="tab" class="list-group-item list-group-item-action">Change Password</a>
+                <a id="dashboardLink" href="#dashboardDiv" data-toggle="tab" class="list-group-item list-group-item-action active">@Localizer["Dashboard"]</a>
+                <a id="viewProfileLink" href="#viewProfileDiv" data-toggle="tab" class="list-group-item list-group-item-action ">@Localizer["ViewProfile"]</a>
+                <a id="updateProfileLink" href="#updateProfileDiv" data-toggle="tab" class="list-group-item list-group-item-action">@Localizer["UpdateProfile"]</a>
+                <a href="#changePasswordDiv" data-toggle="tab" class="list-group-item list-group-item-action">@Localizer["ChangePassword"]</a>
                 @if (Model.Contains("Admin"))
                 {
-                    <a id="coursesLink" href="#coursesDiv" data-toggle="tab" class="list-group-item list-group-item-action">Courses</a>
-                    <a id="quizzesLink" href="#quizzesDiv" data-toggle="tab" class="list-group-item list-group-item-action">Quizzes</a>
+                    <a id="coursesLink" href="#coursesDiv" data-toggle="tab" class="list-group-item list-group-item-action">@Localizer["Courses"]</a>
+                    <a id="quizzesLink" href="#quizzesDiv" data-toggle="tab" class="list-group-item list-group-item-action">@Localizer["Quizzes"]</a>
                 }
                 @if (Model.Contains("Student"))
                 {
-                    <a id="takeQuizLink" href="#takeQuizDiv" data-toggle="tab" class="list-group-item list-group-item-action">Take Quiz</a>
+                    <a id="takeQuizLink" href="#takeQuizDiv" data-toggle="tab" class="list-group-item list-group-item-action">@Localizer["TakeQuiz"]</a>
                 }
-                <a href="#" data-toggle="tab" class="list-group-item list-group-item-action" onclick="document.getElementById('logoutForm').submit()">Logout</a>
+                <a href="#" data-toggle="tab" class="list-group-item list-group-item-action" onclick="document.getElementById('logoutForm').submit()">@Localizer["Logout"]</a>
                 <form id="logoutForm" method="post" asp-controller="Account" asp-action="LogOut" style="display: none"></form>
             </div>
         </div>

@@ -1,12 +1,27 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using QuizApp.Infrastructure;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddControllersWithViews().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+
+var supportedCultures = new[]
+{
+    new CultureInfo("en-US"),
+    new CultureInfo("bn")
+};
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("en-US");
+    options.SupportedUICultures = supportedCultures;
+});
 
 builder.Services.AddDatabaseConfiguration(builder.Configuration);
 
@@ -50,6 +65,7 @@ builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 
+app.UseRequestLocalization();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
