@@ -1,19 +1,13 @@
 ﻿using QuizApp.DataAccess;
 using QuizApp.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace QuizApp.Repository
 {
-    public class QuizRepository : IQuizRepository
+    public class QuizRepository(DataContext context) : IQuizRepository
     {
-        private readonly DataContext _context;
-        public QuizRepository(DataContext context)
-        {
-            _context = context;
-        }
+        private readonly DataContext _context = context;
+
         public void Add<T>(T entity) where T : class
         {
             _context.Add(entity);

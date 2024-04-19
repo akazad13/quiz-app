@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace QuizApp.DataAccess
 {
-    public class DataContext : IdentityDbContext<User, Role, int,
+    public class DataContext(DbContextOptions<DataContext> options) : IdentityDbContext<User, Role, int,
       IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
-      IdentityRoleClaim<int>, IdentityUserToken<int>>
+      IdentityRoleClaim<int>, IdentityUserToken<int>>(options)
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-
         public DbSet<Course> Courses { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<QAndA> QAndAs { get; set; }
@@ -52,9 +50,6 @@ namespace QuizApp.DataAccess
                 .WithOne(q => q.Quizzes)
                 .HasForeignKey(u => u.QuizId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            
-
         }
     }
 }

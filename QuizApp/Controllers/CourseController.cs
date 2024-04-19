@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using QuizApp.Models;
 using QuizApp.Models.Dto;
 using QuizApp.Repository;
@@ -10,18 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace QuizApp.Controllers
 {
-    public class CourseController : Controller
+    public class CourseController(IMapper mapper, UserManager<User> userManager, ICourseRepository courseRepo) : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
-        private readonly ICourseRepository _courseRepo;
+        private readonly IMapper _mapper = mapper;
+        private readonly UserManager<User> _userManager = userManager;
+        private readonly ICourseRepository _courseRepo = courseRepo;
 
-        public CourseController(IMapper mapper, UserManager<User> userManager, ICourseRepository courseRepo)
-        {
-            _mapper = mapper;
-            _userManager = userManager;
-            _courseRepo = courseRepo;
-        }
         [HttpGet]
         public async Task<IActionResult> Get()
         {

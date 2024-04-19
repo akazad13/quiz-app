@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace QuizApp.Models
+﻿namespace QuizApp.Models
 {
     public class EvaluationResult
     {

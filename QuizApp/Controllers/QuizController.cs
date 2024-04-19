@@ -1,36 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using QuizApp.Models;
 using QuizApp.Models.Dto;
 using QuizApp.Repository;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace QuizApp.Controllers
 {
-    public class QuizController : Controller
+    public class QuizController(IMapper mapper, UserManager<User> userManager, IQuizRepository quizRepo, ICourseRepository courseRepo) : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
-        private readonly IQuizRepository _quizRepo;
-        private readonly ICourseRepository _courseRepo;
-        private readonly IWebHostEnvironment _hostingEnvironment;
-
-        public QuizController(IMapper mapper, UserManager<User> userManager, IQuizRepository quizRepo, ICourseRepository courseRepo, IWebHostEnvironment hostingEnvironment)
-        {
-            _mapper = mapper;
-            _userManager = userManager;
-            _quizRepo = quizRepo;
-            _courseRepo = courseRepo;
-            _hostingEnvironment = hostingEnvironment;
-        }
+        private readonly IMapper _mapper = mapper;
+        private readonly UserManager<User> _userManager = userManager;
+        private readonly IQuizRepository _quizRepo = quizRepo;
+        private readonly ICourseRepository _courseRepo = courseRepo;
 
         public IActionResult Index()
         {
@@ -243,29 +226,6 @@ namespace QuizApp.Controllers
             {
                 return BadRequest(e.Message);
             }
-        }
-
-        [HttpGet]
-        public IActionResult GetXMLQuiz()
-        {
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            string xmlData = Path.Combine(webRootPath, "ExamSheet.xml");
-
-            DataSet ds = new DataSet();//Using dataset to read xml file  
-            ds.ReadXml(xmlData);
-            var questions = new List<Questions>();
-            questions = (from rows in ds.Tables[0].AsEnumerable()
-                        select new Questions
-                        {
-                            Id = Convert.ToInt32(rows[0].ToString()), //Convert row to int  
-                            Question = rows[1].ToString(),
-                            Option1 = rows[2].ToString(),
-                            Option2 = rows[3].ToString(),
-                            Option3 = rows[4].ToString(),
-                            Option4 = rows[5].ToString(),
-                            Answer = rows[6].ToString(),
-                        }).ToList();
-            return PartialView("XMLExamPaper", questions);
         }
     }
 }

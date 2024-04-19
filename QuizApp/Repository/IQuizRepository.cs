@@ -1,6 +1,4 @@
 ﻿using QuizApp.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace QuizApp.Repository
 {

@@ -1,7 +1,6 @@
 ﻿using QuizApp.DataAccess;
 using QuizApp.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace QuizApp.Infrastructure
 {

@@ -1,29 +1,19 @@
 ﻿using System.Diagnostics;
-using System.Threading.Tasks;
 using AutoMapper;
 using QuizApp.Models;
 using QuizApp.Models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace QuizApp.Controllers
 {
     [AllowAnonymous]
-    public class AuthController : Controller
+    public class AuthController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager) : Controller
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
-        private readonly IMapper _mapper;
-
-        public AuthController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _mapper = mapper;
-
-        }
+        private readonly SignInManager<User> _signInManager = signInManager;
+        private readonly UserManager<User> _userManager = userManager;
+        private readonly IMapper _mapper = mapper;
 
         public IActionResult Index()
         {

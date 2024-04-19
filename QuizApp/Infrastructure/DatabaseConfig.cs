@@ -1,8 +1,5 @@
 ﻿using QuizApp.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace QuizApp.Infrastructure
 {

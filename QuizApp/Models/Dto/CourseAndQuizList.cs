@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace QuizApp.Models.Dto
+﻿namespace QuizApp.Models.Dto
 {
     public class CourseAndQuizList
     {

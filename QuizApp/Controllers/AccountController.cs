@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using QuizApp.Models;
 using QuizApp.Models.Dto;
 using Microsoft.AspNetCore.Authorization;
@@ -8,18 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace QuizApp.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper) : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IMapper _mapper;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _mapper = mapper;
-        }
+        private readonly UserManager<User> _userManager = userManager;
+        private readonly SignInManager<User> _signInManager = signInManager;
+        private readonly IMapper _mapper = mapper;
 
         [AllowAnonymous]
         public async Task<IActionResult> Index()

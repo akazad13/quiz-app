@@ -1,21 +1,11 @@
 ﻿using QuizApp.DataAccess;
-using QuizApp.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace QuizApp.Repository
 {
-    public class AccountRepository : IAccountRepository
+    public class AccountRepository(DataContext context) : IAccountRepository
     {
-        private readonly DataContext _context;
-        public AccountRepository(DataContext context)
-        {
-            _context = context;
-
-        }
+        private readonly DataContext _context = context;
 
         public async Task<IEnumerable<object>> GetUsersWithRoles()
         {

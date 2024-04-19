@@ -1,5 +1,4 @@
 ﻿using QuizApp.Repository;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace QuizApp.Infrastructure
 {
